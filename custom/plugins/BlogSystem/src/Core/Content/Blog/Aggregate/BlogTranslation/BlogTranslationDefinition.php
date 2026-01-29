@@ -44,7 +44,6 @@ class BlogTranslationDefinition extends EntityTranslationDefinition
 
             (new StringField('name', 'name'))->addFlags(new Required()),
             (new LongTextField('description', 'description')),
-            (new StringField('teaser', 'teaser')),
         ]);
     }
 }

@@ -5,6 +5,7 @@ namespace BlogSystem\Core\Content\BlogCategory\Aggregate\BlogCategoryTranslation
 use BlogSystem\Core\Content\BlogCategory\BlogCategoryDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityTranslationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
@@ -34,6 +35,13 @@ class BlogCategoryTranslationDefinition extends EntityTranslationDefinition
                 'blogCategoryId',
                 BlogCategoryDefinition::class
             ))->addFlags(new PrimaryKey(), new Required()),
+
+            new ManyToOneAssociationField(
+                'blogCategory',
+                'blog_category_id',
+                BlogCategoryDefinition::class,
+                'id'
+            ),
 
             (new FkField(
                 'language_id',

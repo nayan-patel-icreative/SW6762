@@ -23,16 +23,21 @@
             <tag name="shopware.entity.definition"/>
         </service>
 
-        <service id="BlogSystem\Core\Content\Blog\Aggregate\BlogCategoryMapping\BlogCategoryMappingDefinition">
-            <tag name="shopware.entity.definition"/>
-        </service>
-
         <service id="BlogSystem\Core\Content\Blog\Aggregate\BlogProductMapping\BlogProductMappingDefinition">
             <tag name="shopware.entity.definition"/>
         </service>
 
-        <service id="BlogSystem\Core\Content\Blog\Aggregate\BlogTagMapping\BlogTagMappingDefinition">
-            <tag name="shopware.entity.definition"/>
+        <!-- Extensions -->
+        <service id="BlogSystem\Core\Extension\ProductExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="BlogSystem\Core\Extension\BlogCategoryExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="BlogSystem\Core\Extension\LanguageExtension">
+            <tag name="shopware.entity.extension"/>
         </service>
     </services>
 </container>

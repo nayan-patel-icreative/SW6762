@@ -2,18 +2,17 @@
 
 namespace BlogSystem\Core\Content\Blog;
 
-use BlogSystem\Core\Content\Blog\Aggregate\BlogCategoryMapping\BlogCategoryMappingDefinition;
 use BlogSystem\Core\Content\Blog\Aggregate\BlogProductMapping\BlogProductMappingDefinition;
-use BlogSystem\Core\Content\Blog\Aggregate\BlogTagMapping\BlogTagMappingDefinition;
 use BlogSystem\Core\Content\Blog\Aggregate\BlogTranslation\BlogTranslationDefinition;
 use BlogSystem\Core\Content\BlogCategory\BlogCategoryDefinition;
 use Shopware\Core\Content\Product\ProductDefinition;
-use Shopware\Core\System\Tag\TagDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\DateTimeField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\FkField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\IdField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField;
+use Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\TranslationsAssociationField;
@@ -45,25 +44,25 @@ class BlogDefinition extends EntityDefinition
 
             (new StringField('author', 'author'))->addFlags(new Required()),
 
-            (new StringField('slug', 'slug'))->addFlags(
-                new Required()
+            new FkField(
+                'blog_category_id',
+                'blogCategoryId',
+                BlogCategoryDefinition::class
+            ),
+
+            new ManyToOneAssociationField(
+                'category',
+                'blog_category_id',
+                BlogCategoryDefinition::class,
+                'id'
             ),
 
             new TranslatedField('name'),
             new TranslatedField('description'),
-            new TranslatedField('teaser'),
 
             new TranslationsAssociationField(
                 BlogTranslationDefinition::class,
                 'blog_id'
-            ),
-
-            new ManyToManyAssociationField(
-                'categories',
-                BlogCategoryDefinition::class,
-                BlogCategoryMappingDefinition::class,
-                'blog_id',
-                'blog_category_id'
             ),
 
             new ManyToManyAssociationField(
@@ -72,14 +71,6 @@ class BlogDefinition extends EntityDefinition
                 BlogProductMappingDefinition::class,
                 'blog_id',
                 'product_id'
-            ),
-
-            new ManyToManyAssociationField(
-                'tags',
-                TagDefinition::class,
-                BlogTagMappingDefinition::class,
-                'blog_id',
-                'tag_id'
             ),
         ]);
     }
