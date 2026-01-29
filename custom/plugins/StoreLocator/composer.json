@@ -1,0 +1,27 @@
+{
+    "name": "storelocator/store-locator",
+    "description": "Provides store/location entity with country, state, product and media relations.",
+    "type": "shopware-platform-plugin",
+    "version": "1.0.0",
+    "license": "MIT",
+    "require": {
+        "shopware/core": "~6.7.0"
+    },
+    "extra": {
+        "shopware-plugin-class": "StoreLocator\\StoreLocator",
+        "label": {
+            "de-DE": "Store Locator",
+            "en-GB": "Store Locator"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "StoreLocator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "StoreLocator\\Tests\\": "tests/"
+        }
+    }
+}

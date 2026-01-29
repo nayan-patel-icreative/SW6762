@@ -1,0 +1,26 @@
+/.idea
+/vendor/
+/node_modules/
+/var/cache/
+/var/log/
+/.env
+/public/bundles/
+/files/
+
+###> shopware/core ###
+.env.local
+.env.local.php
+.env.*.local
+/public/bundles/*
+/public/media/*
+/public/theme/*
+/public/thumbnail/*
+/public/sitemap/*
+/files/*
+!/files/.htaccess
+/var/*
+!/var/.htaccess
+/auth.json
+/install.lock
+/public/asset-manifest.json
+###< shopware/core ###

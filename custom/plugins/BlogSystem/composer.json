@@ -1,0 +1,27 @@
+{
+    "name": "blog-system/blog-system",
+    "description": "blog-system/blog-system",
+    "type": "shopware-platform-plugin",
+    "version": "1.0.0",
+    "license": "MIT",
+    "require": {
+        "shopware/core": "~6.7.0"
+    },
+    "extra": {
+        "shopware-plugin-class": "BlogSystem\\BlogSystem",
+        "label": {
+            "de-DE": "Blog System",
+            "en-GB": "Blog System"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "BlogSystem\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BlogSystem\\Tests\\": "tests/"
+        }
+    }
+}

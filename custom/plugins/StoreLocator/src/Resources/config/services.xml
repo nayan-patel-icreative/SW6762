@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Main Store entity -->
+        <service id="StoreLocator\Core\Content\Store\StoreDefinition">
+            <tag name="shopware.entity.definition"/>
+        </service>
+
+        <!-- Store translation entity -->
+        <service id="StoreLocator\Core\Content\Store\Aggregate\StoreTranslation\StoreTranslationDefinition">
+            <tag name="shopware.entity.definition"/>
+        </service>
+
+        <service id="StoreLocator\Core\Extensions\CountryExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="StoreLocator\Core\Extensions\ProductExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="StoreLocator\Core\Extensions\MediaExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="StoreLocator\Core\Extensions\StateMachineStateExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+
+        <service id="StoreLocator\Core\Extensions\LanguageExtension">
+            <tag name="shopware.entity.extension"/>
+        </service>
+    </services>
+</container>

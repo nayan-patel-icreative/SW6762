@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- Blog -->
+        <service id="BlogSystem\Core\Content\Blog\BlogDefinition">
+            <tag name="shopware.entity.definition"/>
+        </service>
+
+        <!-- Blog Translation -->
+        <service id="BlogSystem\Core\Content\Blog\Aggregate\BlogTranslation\BlogTranslationDefinition">
+            <tag name="shopware.entity.definition"/>
+        </service>
+
+        <service id="BlogSystem\Core\Content\BlogCategory\BlogCategoryDefinition">
+            <tag name="shopware.entity.definition"/>
+        </service>
+
+        <service id="BlogSystem\Core\Content\BlogCategory\Aggregate\BlogCategoryTranslation\BlogCategoryTranslationDefinition">
+            <tag name="shopware.entity.definition"/>
+        </service>
+
+        <service id="BlogSystem\Core\Content\Blog\Aggregate\BlogCategoryMapping\BlogCategoryMappingDefinition">
+            <tag name="shopware.entity.definition"/>
+        </service>
+
+        <service id="BlogSystem\Core\Content\Blog\Aggregate\BlogProductMapping\BlogProductMappingDefinition">
+            <tag name="shopware.entity.definition"/>
+        </service>
+
+        <service id="BlogSystem\Core\Content\Blog\Aggregate\BlogTagMapping\BlogTagMappingDefinition">
+            <tag name="shopware.entity.definition"/>
+        </service>
+    </services>
+</container>
