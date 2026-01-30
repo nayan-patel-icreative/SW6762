@@ -1,5 +1,61 @@
-<sw-page>
+<sw-page class="blog-detail">
+    <template #smart-bar-header>
+        <h2>
+            Blog
+            <template v-if="blog && blog.name">- {{ blog.name }}</template>
+        </h2>
+    </template>
+
+    <template #smart-bar-actions>
+        <mt-button variant="danger" :disabled="isLoading || !blog" @click="onDelete">
+            Delete
+        </mt-button>
+
+        <sw-button-process
+            variant="primary"
+            :process-success="isSaveSuccessful"
+            :is-loading="isLoading"
+            :disabled="isLoading || !blog"
+            @update:process-success="isSaveSuccessful = false"
+            @click="onSave">
+            Save
+        </sw-button-process>
+    </template>
+
     <template #content>
-        <h1>Blog detail works 🎯</h1>
+        <sw-loader v-if="isLoading" />
+
+        <sw-card-view v-else-if="blog">
+            <mt-card :title="'General'" :isLoading="isLoading">
+                <mt-text-field v-model="blog.name" required type="text" label="Name" />
+                <mt-text-field v-model="blog.author" required type="text" label="Author" />
+                <mt-switch v-model="blog.active" bordered label="Active" />
+
+                <sw-entity-single-select
+                    v-model:value="blog.blogCategoryId"
+                    entity="blog_category"
+                    label="Category" />
+
+                <mt-text-field
+                    v-model="releaseDateInput"
+                    type="text"
+                    label="Release date (ISO, e.g. 2026-01-30T10:00:00+00:00)" />
+            </mt-card>
+
+            <mt-card :title="'Products'" :isLoading="isLoading">
+                <sw-entity-multi-id-select
+                    name="blog-products"
+                    :repository="productRepository"
+                    :criteria="productCriteria"
+                    :value="productIds"
+                    @update:value="productIds = $event" />
+            </mt-card>
+
+            <mt-card :title="'Content'" :isLoading="isLoading">
+                <mt-textarea v-model="blog.description" label="Description" />
+            </mt-card>
+        </sw-card-view>
+
+        <sw-empty-state v-else title="Could not load blog" />
     </template>
 </sw-page>

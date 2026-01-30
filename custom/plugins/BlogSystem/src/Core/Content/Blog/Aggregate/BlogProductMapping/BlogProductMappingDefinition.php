@@ -42,7 +42,7 @@ class BlogProductMappingDefinition extends MappingEntityDefinition
             ))->addFlags(new PrimaryKey(), new Required()),
 
             // product version support
-            new ReferenceVersionField(ProductDefinition::class),
+            (new ReferenceVersionField(ProductDefinition::class))->addFlags(new PrimaryKey(), new Required()),
 
             new ManyToOneAssociationField(
                 'blog',

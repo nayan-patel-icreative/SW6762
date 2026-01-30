@@ -10,9 +10,9 @@ class BlogCategoryEntity extends Entity
 {
     use EntityIdTrait;
 
-    protected ?string $name;
+    protected ?string $name = null;
 
-    protected ?BlogCategoryTranslationCollection $translations;
+    protected ?BlogCategoryTranslationCollection $translations = null;
 
     public function getName(): ?string
     {

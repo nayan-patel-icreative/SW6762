@@ -1,5 +1,40 @@
-<sw-page>
+<sw-page class="blog-category-detail">
+    <template #smart-bar-header>
+        <h2>
+            Blog category
+            <template v-if="blogCategory && blogCategory.name">- {{ blogCategory.name }}</template>
+        </h2>
+    </template>
+
+    <template #smart-bar-actions>
+        <mt-button variant="danger" :disabled="isLoading || !blogCategory" @click="onDelete">
+            Delete
+        </mt-button>
+
+        <sw-button-process
+            variant="primary"
+            :process-success="isSaveSuccessful"
+            :is-loading="isLoading"
+            :disabled="isLoading || !blogCategory"
+            @update:process-success="isSaveSuccessful = false"
+            @click="onSave">
+            Save
+        </sw-button-process>
+    </template>
+
     <template #content>
-        <h1>Blog category detail works 🎯</h1>
+        <sw-loader v-if="isLoading" />
+
+        <sw-card-view v-else-if="blogCategory">
+            <mt-card :title="'General'" :isLoading="isLoading">
+                <mt-text-field
+                    v-model="blogCategory.name"
+                    required
+                    type="text"
+                    label="Name" />
+            </mt-card>
+        </sw-card-view>
+
+        <sw-empty-state v-else title="Could not load blog category" />
     </template>
 </sw-page>

@@ -12,23 +12,23 @@ class BlogEntity extends Entity
 {
     use EntityIdTrait;
 
-    protected bool $active;
+    protected bool $active = false;
 
-    protected ?\DateTime $releaseDate;
+    protected ?\DateTime $releaseDate = null;
 
-    protected string $author;
+    protected string $author = '';
 
-    protected ?string $blogCategoryId;
+    protected ?string $blogCategoryId = null;
 
-    protected ?BlogCategoryEntity $category;
+    protected ?BlogCategoryEntity $category = null;
 
-    protected ?string $name;
+    protected ?string $name = null;
 
-    protected ?string $description;
+    protected ?string $description = null;
 
-    protected ?BlogTranslationCollection $translations;
+    protected ?BlogTranslationCollection $translations = null;
 
-    protected ?ProductCollection $products;
+    protected ?ProductCollection $products = null;
 
     public function isActive(): bool
     {

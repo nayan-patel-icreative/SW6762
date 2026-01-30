@@ -1,5 +1,70 @@
-<sw-page>
+<sw-page class="blog-list">
+    <template #smart-bar-header>
+        <h2>
+            Blogs
+            <template v-if="!isLoading">({{ total }})</template>
+        </h2>
+    </template>
+
+    <template #smart-bar-actions>
+        <mt-button variant="primary" @click="$router.push({ name: 'blog.create' })">
+            Create
+        </mt-button>
+    </template>
+
     <template #content>
-        <h1>Blog list works 🎉</h1>
+        <sw-loader v-if="isLoading" />
+
+        <sw-data-grid
+            v-else-if="blogs && total > 0"
+            identifier="blog-list"
+            :dataSource="blogs"
+            :columns="columns"
+            :showActions="true"
+            :showSelection="false"
+            :showSettings="true"
+            :allowColumnEdit="true"
+            :isLoading="isLoading"
+            :sortBy="sortBy"
+            :sortDirection="sortDirection"
+            :skeletonItemAmount="limit"
+            @column-sort="onSortColumn"
+            @inline-edit-save="onInlineEditSave"
+            @inline-edit-cancel="onInlineEditCancel">
+
+            <template #column-name="{ item }">
+                <router-link :to="{ name: 'blog.detail', params: { id: item.id } }">
+                    {{ item.name }}
+                </router-link>
+            </template>
+
+            <template #column-active="{ item }">
+                <sw-label appearance="pill" :variant="item.active ? 'success' : 'danger'">
+                    {{ item.active ? 'Yes' : 'No' }}
+                </sw-label>
+            </template>
+
+            <template #actions="{ item }">
+                <sw-context-menu-item @click="$router.push({ name: 'blog.detail', params: { id: item.id } })">
+                    Edit
+                </sw-context-menu-item>
+                <sw-context-menu-item variant="danger" @click="onDelete(item)">
+                    Delete
+                </sw-context-menu-item>
+            </template>
+
+            <template #pagination>
+                <sw-pagination
+                    :page="page"
+                    :limit="limit"
+                    :total="total"
+                    @page-change="onPageChange" />
+            </template>
+        </sw-data-grid>
+
+        <sw-empty-state
+            v-else
+            title="No blogs yet"
+            subline="Create your first blog." />
     </template>
 </sw-page>

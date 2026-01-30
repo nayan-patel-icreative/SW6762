@@ -1,5 +1,64 @@
-<sw-page>
+<sw-page class="blog-category-list">
+    <template #smart-bar-header>
+        <h2>
+            Blog Categories
+            <template v-if="!isLoading">({{ total }})</template>
+        </h2>
+    </template>
+
+    <template #smart-bar-actions>
+        <mt-button variant="primary" @click="$router.push({ name: 'blog.category.create' })">
+            Create
+        </mt-button>
+    </template>
+
     <template #content>
-        <h1>Blog category list works 🎉</h1>
+        <sw-loader v-if="isLoading" />
+
+        <sw-data-grid
+            v-else-if="blogCategories && total > 0"
+            identifier="blog-category-list"
+            :dataSource="blogCategories"
+            :columns="columns"
+            :showActions="true"
+            :showSelection="false"
+            :showSettings="true"
+            :allowColumnEdit="true"
+            :isLoading="isLoading"
+            :sortBy="sortBy"
+            :sortDirection="sortDirection"
+            :skeletonItemAmount="limit"
+            @column-sort="onSortColumn"
+            @inline-edit-save="onInlineEditSave"
+            @inline-edit-cancel="onInlineEditCancel">
+
+            <template #column-name="{ item }">
+                <router-link :to="{ name: 'blog.category.detail', params: { id: item.id } }">
+                    {{ item.name }}
+                </router-link>
+            </template>
+
+            <template #actions="{ item }">
+                <sw-context-menu-item @click="$router.push({ name: 'blog.category.detail', params: { id: item.id } })">
+                    Edit
+                </sw-context-menu-item>
+                <sw-context-menu-item variant="danger" @click="onDelete(item)">
+                    Delete
+                </sw-context-menu-item>
+            </template>
+
+            <template #pagination>
+                <sw-pagination
+                    :page="page"
+                    :limit="limit"
+                    :total="total"
+                    @page-change="onPageChange" />
+            </template>
+        </sw-data-grid>
+
+        <sw-empty-state
+            v-else
+            title="No blog categories yet"
+            subline="Create your first blog category." />
     </template>
 </sw-page>
