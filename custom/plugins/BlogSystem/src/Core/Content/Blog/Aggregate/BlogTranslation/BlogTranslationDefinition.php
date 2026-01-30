@@ -7,7 +7,6 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityTranslationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\LongTextField;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\AllowHtml;
 
 class BlogTranslationDefinition extends EntityTranslationDefinition
@@ -19,6 +18,16 @@ class BlogTranslationDefinition extends EntityTranslationDefinition
         return self::ENTITY_NAME;
     }
 
+    public function getEntityClass(): string
+    {
+        return BlogTranslationEntity::class;
+    }
+
+    public function getCollectionClass(): string
+    {
+        return BlogTranslationCollection::class;
+    }
+
     public function getParentDefinitionClass(): string
     {
         return BlogDefinition::class;
@@ -27,7 +36,7 @@ class BlogTranslationDefinition extends EntityTranslationDefinition
     protected function defineFields(): FieldCollection
     {
         return new FieldCollection([
-            (new StringField('name', 'name'))->addFlags(new Required()),
+            (new StringField('name', 'name')),
             (new LongTextField('description', 'description'))
                 ->addFlags(new AllowHtml()),
         ]);

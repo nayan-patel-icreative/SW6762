@@ -6,7 +6,6 @@ use BlogSystem\Core\Content\BlogCategory\BlogCategoryDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityTranslationDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\Field\StringField;
 use Shopware\Core\Framework\DataAbstractionLayer\FieldCollection;
-use Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 
 class BlogCategoryTranslationDefinition extends EntityTranslationDefinition
 {
@@ -17,6 +16,16 @@ class BlogCategoryTranslationDefinition extends EntityTranslationDefinition
         return self::ENTITY_NAME;
     }
 
+    public function getEntityClass(): string
+    {
+        return BlogCategoryTranslationEntity::class;
+    }
+
+    public function getCollectionClass(): string
+    {
+        return BlogCategoryTranslationCollection::class;
+    }
+
     public function getParentDefinitionClass(): string
     {
         return BlogCategoryDefinition::class;
@@ -25,7 +34,7 @@ class BlogCategoryTranslationDefinition extends EntityTranslationDefinition
     protected function defineFields(): FieldCollection
     {
         return new FieldCollection([
-            (new StringField('name', 'name'))->addFlags(new Required()),
+            (new StringField('name', 'name')),
         ]);
     }
 }
