@@ -1,0 +1,25 @@
+{% block sw_cms_block_four_column_image_text %}
+<div class="sw-cms-block-four-column-image-text">
+
+    <div class="sw-cms-block-four-column-image-text__col">
+        <slot name="left-image"></slot>
+        <slot name="left-text"></slot>
+    </div>
+
+    <div class="sw-cms-block-four-column-image-text__col">
+        <slot name="center-image"></slot>
+        <slot name="center-text"></slot>
+    </div>
+
+    <div class="sw-cms-block-four-column-image-text__col">
+        <slot name="right-image"></slot>
+        <slot name="right-text"></slot>
+    </div>
+
+    <div class="sw-cms-block-four-column-image-text__col">
+        <slot name="fourth-image"></slot>
+        <slot name="fourth-text"></slot>
+    </div>
+
+</div>
+{% endblock %}
