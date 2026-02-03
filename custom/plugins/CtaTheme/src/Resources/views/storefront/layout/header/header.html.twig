@@ -1,0 +1,16 @@
+{% sw_extends '@Storefront/storefront/layout/header/header.html.twig' %}
+
+{% block layout_header_actions_cart %}
+    {{ parent() }}
+
+    {% if theme_config('ctaUrl') %}
+        <div class="col-auto">
+            <a href="{{ theme_config('ctaUrl') }}"
+               class="btn header-actions-btn btn-primary ms-2"
+               target="_blank"
+               rel="noopener">
+                Open Link
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
