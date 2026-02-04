@@ -1,0 +1,109 @@
+{% sw_extends '@Storefront/storefront/block/cms-block-text-teaser-section.html.twig' %}
+
+{% block block_text_teaser_section %}
+    {% set imageSlotCandidates = [] %}
+
+    {% set backgroundMedia = null %}
+    {% if block.backgroundMedia is defined %}
+        {% set backgroundMedia = block.backgroundMedia %}
+    {% endif %}
+
+    {% set backgroundMediaUrl = null %}
+    {% if backgroundMedia %}
+        {% if backgroundMedia.url is defined and backgroundMedia.url %}
+            {% set backgroundMediaUrl = backgroundMedia.url %}
+        {% else %}
+            {% set backgroundMediaUrl = backgroundMedia|sw_encode_media_url %}
+        {% endif %}
+    {% endif %}
+
+    {% if not backgroundMediaUrl and block.config is defined and block.config.backgroundMedia is defined and block.config.backgroundMedia.value is defined %}
+        {% set configBackgroundMediaValue = block.config.backgroundMedia.value %}
+
+        {% if configBackgroundMediaValue is string and (configBackgroundMediaValue matches '/\\//') %}
+            {% set backgroundMediaUrl = configBackgroundMediaValue %}
+        {% elseif configBackgroundMediaValue.url is defined and configBackgroundMediaValue.url %}
+            {% set backgroundMediaUrl = configBackgroundMediaValue.url %}
+        {% elseif configBackgroundMediaValue.media is defined and configBackgroundMediaValue.media.url is defined and configBackgroundMediaValue.media.url %}
+            {% set backgroundMediaUrl = configBackgroundMediaValue.media.url %}
+        {% else %}
+            {% set configBackgroundMediaId = null %}
+
+            {% if configBackgroundMediaValue is string %}
+                {% set configBackgroundMediaId = configBackgroundMediaValue %}
+            {% elseif configBackgroundMediaValue.id is defined and configBackgroundMediaValue.id %}
+                {% set configBackgroundMediaId = configBackgroundMediaValue.id %}
+            {% elseif configBackgroundMediaValue.media is defined and configBackgroundMediaValue.media.id is defined and configBackgroundMediaValue.media.id %}
+                {% set configBackgroundMediaId = configBackgroundMediaValue.media.id %}
+            {% endif %}
+
+            {% if configBackgroundMediaId %}
+                {% set mediaCollection = searchMedia([configBackgroundMediaId], context) %}
+                {% set resolvedMedia = mediaCollection.get(configBackgroundMediaId) %}
+
+                {% if resolvedMedia %}
+                    {% set backgroundMedia = resolvedMedia %}
+
+                    {% if resolvedMedia.url is defined and resolvedMedia.url %}
+                        {% set backgroundMediaUrl = resolvedMedia.url %}
+                    {% else %}
+                        {% set backgroundMediaUrl = resolvedMedia|sw_encode_media_url %}
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {% set backgroundMediaAlt = '' %}
+    {% if backgroundMedia %}
+        {% if backgroundMedia.translated is defined %}
+            {% set backgroundMediaAlt = backgroundMedia.translated.alt|default(backgroundMedia.alt|default('')) %}
+        {% else %}
+            {% set backgroundMediaAlt = backgroundMedia.alt|default('') %}
+        {% endif %}
+    {% endif %}
+
+    {% for slotName, slot in block.slots %}
+        {% set resolvedSlotName = slot.slot|default(slotName) %}
+
+        {% if resolvedSlotName not in ['left', 'right'] and slot is not null %}
+            {% if slot.type in ['image', 'image-slider'] %}
+                {% set imageSlotCandidates = imageSlotCandidates|merge([{'name': resolvedSlotName, 'slot': slot}]) %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+    {% set imageSlotData = imageSlotCandidates|first %}
+    {% set imageSlot = imageSlotData ? imageSlotData.slot : null %}
+
+    {% set placeholderImageUrl = asset('bundles/administration/administration/static/img/cms/preview_camera_small.webp') %}
+
+    {% set columns = 3 %}
+
+    {% block block_text_teaser_section_left %}
+        {% set element = block.slots.getSlot('left') %}
+        <div class="col-lg-3 col-md-4"{% if element %} data-cms-element-id="{{ element.id }}"{% endif %}>
+            {{ block('block_text_teaser_section_left_inner') }}
+        </div>
+    {% endblock %}
+
+    {% block block_text_teaser_section_right %}
+        {% set element = block.slots.getSlot('right') %}
+        <div class="col-lg-6 col-md-8"{% if element %} data-cms-element-id="{{ element.id }}"{% endif %}>
+            {{ block('block_text_teaser_section_right_inner') }}
+        </div>
+    {% endblock %}
+
+    {% block block_text_teaser_section_image %}
+        <div class="col-lg-3 col-md-12"{% if imageSlot is not null %} data-cms-element-id="{{ imageSlot.id }}"{% endif %}>
+            {% if imageSlot is not null %}
+                {% set element = imageSlot %}
+                {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
+            {% elseif backgroundMediaUrl %}
+                <img class="img-fluid" src="{{ backgroundMediaUrl }}" alt="{{ backgroundMediaAlt }}">
+            {% else %}
+                <img class="img-fluid" src="{{ placeholderImageUrl }}" alt="">
+            {% endif %}
+        </div>
+    {% endblock %}
+{% endblock %}

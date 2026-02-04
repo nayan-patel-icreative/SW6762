@@ -1,0 +1,25 @@
+.sw-cms-block-text-teaser-section--three-col {
+    display: grid;
+    grid-template-columns: 2fr 3fr 1fr;
+    grid-column-gap: 20px;
+    align-items: center;
+}
+
+.sw-cms-block-text-teaser-section--three-col .sw-cms-block-text-teaser-section__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sw-cms-block-text-teaser-section--three-col .sw-cms-block-text-teaser-section__image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.sw-cms-block-text-teaser-section--three-col .sw-cms-block-text-teaser-section__image-placeholder {
+    width: 100%;
+    min-height: 60px;
+    background: #f0f2f5;
+    border: 1px dashed #d1d9e0;
+}
