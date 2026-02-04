@@ -1,0 +1,84 @@
+{% block block_three_column_captioned_images_horizontal %}
+    {% set columns = 3 %}
+
+    {% block block_three_column_captioned_images_horizontal_left %}
+        <div class="col-md-4">
+            <div class="cms-block-three-column-captioned-images-horizontal__item">
+                <div class="cms-block-three-column-captioned-images-horizontal__image">
+                    {% set element = block.slots.getSlot('left-image') %}
+                    <div data-cms-element-id="{{ element.id }}">
+                        {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
+                    </div>
+
+                    <div class="cms-block-three-column-captioned-images-horizontal__button">
+                        {% set element = block.slots.getSlot('left-button') %}
+                        <div data-cms-element-id="{{ element.id }}">
+                            {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cms-block-three-column-captioned-images-horizontal__content">
+                    {% set element = block.slots.getSlot('left-text') %}
+                    <div data-cms-element-id="{{ element.id }}">
+                        {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block block_three_column_captioned_images_horizontal_center %}
+        <div class="col-md-4">
+            <div class="cms-block-three-column-captioned-images-horizontal__item">
+                <div class="cms-block-three-column-captioned-images-horizontal__image">
+                    {% set element = block.slots.getSlot('center-image') %}
+                    <div data-cms-element-id="{{ element.id }}">
+                        {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
+                    </div>
+
+                    <div class="cms-block-three-column-captioned-images-horizontal__button">
+                        {% set element = block.slots.getSlot('center-button') %}
+                        <div data-cms-element-id="{{ element.id }}">
+                            {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cms-block-three-column-captioned-images-horizontal__content">
+                    {% set element = block.slots.getSlot('center-text') %}
+                    <div data-cms-element-id="{{ element.id }}">
+                        {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block block_three_column_captioned_images_horizontal_right %}
+        <div class="col-md-4">
+            <div class="cms-block-three-column-captioned-images-horizontal__item">
+                <div class="cms-block-three-column-captioned-images-horizontal__image">
+                    {% set element = block.slots.getSlot('right-image') %}
+                    <div data-cms-element-id="{{ element.id }}">
+                        {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
+                    </div>
+
+                    <div class="cms-block-three-column-captioned-images-horizontal__button">
+                        {% set element = block.slots.getSlot('right-button') %}
+                        <div data-cms-element-id="{{ element.id }}">
+                            {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cms-block-three-column-captioned-images-horizontal__content">
+                    {% set element = block.slots.getSlot('right-text') %}
+                    <div data-cms-element-id="{{ element.id }}">
+                        {% sw_include '@Storefront/storefront/element/cms-element-' ~ element.type ~ '.html.twig' ignore missing %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+{% endblock %}

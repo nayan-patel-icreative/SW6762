@@ -1,0 +1,46 @@
+{% block sw_cms_el_config_cms_enhancements_button %}
+<div class="sw-cms-el-config-cms-enhancements-button">
+    <sw-cms-inherit-wrapper
+        field="label"
+        :element="element"
+        label="Label"
+    >
+        <template #default="{ isInherited }">
+            <mt-text-field
+                v-model:model-value="element.config.label.value"
+                :disabled="isInherited"
+                @update:model-value="emitUpdate"
+            />
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+        field="url"
+        :element="element"
+        label="Redirect URL"
+    >
+        <template #default="{ isInherited }">
+            <sw-dynamic-url-field
+                v-model:value="element.config.url.value"
+                :disabled="isInherited"
+                @update:value="emitUpdate"
+            />
+        </template>
+    </sw-cms-inherit-wrapper>
+
+    <sw-cms-inherit-wrapper
+        field="variant"
+        :element="element"
+        label="Color / Variant"
+    >
+        <template #default="{ isInherited }">
+            <mt-select
+                v-model:model-value="element.config.variant.value"
+                :disabled="isInherited"
+                :options="variantOptions"
+                @update:model-value="emitUpdate"
+            />
+        </template>
+    </sw-cms-inherit-wrapper>
+</div>
+{% endblock %}

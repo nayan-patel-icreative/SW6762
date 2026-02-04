@@ -1,0 +1,16 @@
+{% block element_cms_enhancements_button %}
+    {% set cfg = element.translated.config %}
+
+    {% set label = cfg.label.value %}
+    {% set url = cfg.url.value %}
+    {% set variant = cfg.variant.value|default('primary') %}
+
+    {% if label and url %}
+        <a
+            class="btn btn-{{ variant }} btn-sm"
+            href="{{ url }}"
+        >
+            {{ label }}
+        </a>
+    {% endif %}
+{% endblock %}

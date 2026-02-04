@@ -1,0 +1,46 @@
+.sw-cms-block-three-column-captioned-images-horizontal {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+
+    &__item {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    &__image {
+        position: relative;
+        flex: 0 0 160px;
+    }
+
+    &__button {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+
+        .sw-cms-el-cms-enhancements-button {
+            padding-top: 0;
+        }
+    }
+
+    &__content {
+        flex: 1 1 auto;
+
+        .sw-cms-el-text {
+            padding-top: 0;
+
+            h3 {
+                margin: 0 0 8px;
+            }
+
+            p {
+                margin: 0;
+            }
+        }
+    }
+
+    .sw-cms-el-image.is--cover {
+        min-height: 120px;
+    }
+}

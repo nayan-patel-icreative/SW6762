@@ -5,27 +5,33 @@
 
 export {};
 
-declare var Shopware: any;
+declare const Shopware: any;
 
-Shopware.Component.register('sw-cms-preview-four-column-image-text', () => import('./preview'));
+Shopware.Component.register(
+    'sw-cms-preview-three-column-captioned-images-horizontal',
+    () => import('./preview'),
+);
 
 /**
  * @private
  * @sw-package discovery
  */
-Shopware.Component.register('sw-cms-block-four-column-image-text', () => import('./component'));
+Shopware.Component.register(
+    'sw-cms-block-three-column-captioned-images-horizontal',
+    () => import('./component'),
+);
 
 /**
  * @private
  * @sw-package discovery
  */
 Shopware.Service('cmsService').registerCmsBlock({
-    name: 'four-column-image-text',
-    label: 'Four columns – image/text cards',
+    name: 'three-column-captioned-images-horizontal',
+    label: 'Three columns – captioned images (horizontal) + button',
     category: 'text-image',
 
-    component: 'sw-cms-block-four-column-image-text',
-    previewComponent: 'sw-cms-preview-four-column-image-text',
+    component: 'sw-cms-block-three-column-captioned-images-horizontal',
+    previewComponent: 'sw-cms-preview-three-column-captioned-images-horizontal',
 
     defaultConfig: {
         marginBottom: '20px',
@@ -50,7 +56,6 @@ Shopware.Service('cmsService').registerCmsBlock({
                 },
             },
         },
-
         'left-text': {
             type: 'text',
             default: {
@@ -58,12 +63,20 @@ Shopware.Service('cmsService').registerCmsBlock({
                     content: {
                         source: 'static',
                         value: `
-                        <h2>Lorem</h2>
-                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                        sed diam voluptua.</p>
+                        <h3>Lorem ipsum</h3>
+                        <p>Lorem ipsum dolor sit amet elitr.</p>
                         `.trim(),
                     },
+                },
+            },
+        },
+        'left-button': {
+            type: 'cms-enhancements-button',
+            default: {
+                config: {
+                    label: { source: 'static', value: 'Learn more' },
+                    url: { source: 'static', value: '#' },
+                    variant: { source: 'static', value: 'primary' },
                 },
             },
         },
@@ -82,7 +95,6 @@ Shopware.Service('cmsService').registerCmsBlock({
                 },
             },
         },
-
         'center-text': {
             type: 'text',
             default: {
@@ -90,12 +102,20 @@ Shopware.Service('cmsService').registerCmsBlock({
                     content: {
                         source: 'static',
                         value: `
-                        <h2>Ipsum</h2>
-                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                        sed diam voluptua.</p>
+                        <h3>Lorem ipsum</h3>
+                        <p>Lorem ipsum dolor sit amet elitr.</p>
                         `.trim(),
                     },
+                },
+            },
+        },
+        'center-button': {
+            type: 'cms-enhancements-button',
+            default: {
+                config: {
+                    label: { source: 'static', value: 'Learn more' },
+                    url: { source: 'static', value: '#' },
+                    variant: { source: 'static', value: 'primary' },
                 },
             },
         },
@@ -114,7 +134,6 @@ Shopware.Service('cmsService').registerCmsBlock({
                 },
             },
         },
-
         'right-text': {
             type: 'text',
             default: {
@@ -122,43 +141,20 @@ Shopware.Service('cmsService').registerCmsBlock({
                     content: {
                         source: 'static',
                         value: `
-                        <h2>Dolor</h2>
-                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-                        sed diam voluptua.</p>
+                        <h3>Lorem ipsum</h3>
+                        <p>Lorem ipsum dolor sit amet elitr.</p>
                         `.trim(),
                     },
                 },
             },
         },
-
-        'fourth-image': {
-            type: 'image',
+        'right-button': {
+            type: 'cms-enhancements-button',
             default: {
                 config: {
-                    displayMode: { source: 'static', value: 'cover' },
-                },
-                data: {
-                    media: {
-                        value: Shopware.Constants.CMS.MEDIA.previewCamera,
-                        source: 'default',
-                    },
-                },
-            },
-        },
-
-        'fourth-text': {
-            type: 'text',
-            default: {
-                config: {
-                    content: {
-                        source: 'static',
-                        value: `
-                        <h2>Elitr</h2>
-                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-                        sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>
-                        `.trim(),
-                    },
+                    label: { source: 'static', value: 'Learn more' },
+                    url: { source: 'static', value: '#' },
+                    variant: { source: 'static', value: 'primary' },
                 },
             },
         },

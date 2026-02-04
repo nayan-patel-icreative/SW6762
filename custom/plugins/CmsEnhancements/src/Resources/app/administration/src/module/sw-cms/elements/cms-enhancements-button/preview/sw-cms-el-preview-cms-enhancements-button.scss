@@ -1,0 +1,13 @@
+.sw-cms-el-preview-cms-enhancements-button {
+    display: inline-flex;
+
+    &__btn {
+        display: inline-block;
+        background: #189eff;
+        color: #fff;
+        font-size: 11px;
+        line-height: 1;
+        padding: 6px 10px;
+        border-radius: 2px;
+    }
+}

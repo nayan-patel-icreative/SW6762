@@ -1,0 +1,41 @@
+{% block sw_cms_block_three_column_captioned_images_horizontal %}
+<div class="sw-cms-block-three-column-captioned-images-horizontal">
+
+    <div class="sw-cms-block-three-column-captioned-images-horizontal__item">
+        <div class="sw-cms-block-three-column-captioned-images-horizontal__image">
+            <slot name="left-image"></slot>
+            <div class="sw-cms-block-three-column-captioned-images-horizontal__button">
+                <slot name="left-button"></slot>
+            </div>
+        </div>
+        <div class="sw-cms-block-three-column-captioned-images-horizontal__content">
+            <slot name="left-text"></slot>
+        </div>
+    </div>
+
+    <div class="sw-cms-block-three-column-captioned-images-horizontal__item">
+        <div class="sw-cms-block-three-column-captioned-images-horizontal__image">
+            <slot name="center-image"></slot>
+            <div class="sw-cms-block-three-column-captioned-images-horizontal__button">
+                <slot name="center-button"></slot>
+            </div>
+        </div>
+        <div class="sw-cms-block-three-column-captioned-images-horizontal__content">
+            <slot name="center-text"></slot>
+        </div>
+    </div>
+
+    <div class="sw-cms-block-three-column-captioned-images-horizontal__item">
+        <div class="sw-cms-block-three-column-captioned-images-horizontal__image">
+            <slot name="right-image"></slot>
+            <div class="sw-cms-block-three-column-captioned-images-horizontal__button">
+                <slot name="right-button"></slot>
+            </div>
+        </div>
+        <div class="sw-cms-block-three-column-captioned-images-horizontal__content">
+            <slot name="right-text"></slot>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
