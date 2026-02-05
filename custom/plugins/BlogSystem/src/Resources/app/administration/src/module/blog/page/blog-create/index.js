@@ -16,7 +16,6 @@ Shopware.Component.register('blog-create', {
             isLoading: false,
             isSaveSuccessful: false,
             blog: null,
-            releaseDateInput: '',
             productIds: [],
         };
     },
@@ -54,7 +53,6 @@ Shopware.Component.register('blog-create', {
             this.blog.description = '';
             this.blog.blogCategoryId = null;
             this.blog.releaseDate = null;
-            this.releaseDateInput = '';
             this.productIds = [];
         },
 
@@ -81,12 +79,6 @@ Shopware.Component.register('blog-create', {
                 id,
                 versionId: Shopware.Context.api.liveVersionId,
             }));
-
-            if (this.releaseDateInput) {
-                this.blog.releaseDate = this.releaseDateInput;
-            } else {
-                this.blog.releaseDate = null;
-            }
 
             this.isLoading = true;
             this.isSaveSuccessful = false;

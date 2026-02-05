@@ -39,9 +39,10 @@
                     :context="languageContext"
                     :label="$tc('blog-system.blog.detail.field.category')" />
 
-                <mt-text-field
-                    v-model="releaseDateInput"
-                    type="text"
+                <mt-datepicker
+                    v-model="blog.releaseDate"
+                    :date-type="true"
+                    :placeholder="$tc('sw-datepicker.date.placeholder')"
                     :label="$tc('blog-system.blog.detail.field.releaseDate')" />
             </mt-card>
 
@@ -50,8 +51,8 @@
                     name="blog-products"
                     :repository="productRepository"
                     :criteria="productCriteria"
-                    :value="productIds"
-                    @update:value="productIds = $event" />
+                    :value="Array.isArray(productIds) ? productIds : []"
+                    @update:value="productIds = Array.isArray($event) ? $event : []" />
             </mt-card>
 
             <mt-card :title="$tc('blog-system.blog.detail.contentCard')" :isLoading="isLoading">

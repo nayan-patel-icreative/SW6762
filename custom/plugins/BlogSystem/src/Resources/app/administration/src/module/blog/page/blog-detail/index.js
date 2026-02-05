@@ -16,7 +16,6 @@ Shopware.Component.register('blog-detail', {
             isLoading: false,
             isSaveSuccessful: false,
             blog: null,
-            releaseDateInput: '',
             productIds: [],
         };
     },
@@ -73,7 +72,6 @@ Shopware.Component.register('blog-detail', {
 
             return this.repository.get(this.$route.params.id, Shopware.Context.api, criteria).then((entity) => {
                 this.blog = entity;
-                this.releaseDateInput = entity.releaseDate || '';
                 this.productIds = (entity.products || []).map((product) => product.id);
                 this.isLoading = false;
             }).catch((error) => {
@@ -97,12 +95,6 @@ Shopware.Component.register('blog-detail', {
                 id,
                 versionId: Shopware.Context.api.liveVersionId,
             }));
-
-            if (this.releaseDateInput) {
-                this.blog.releaseDate = this.releaseDateInput;
-            } else {
-                this.blog.releaseDate = null;
-            }
 
             this.isLoading = true;
             this.isSaveSuccessful = false;
