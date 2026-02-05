@@ -1,0 +1,51 @@
+@import 'layout/navigation-flyout';
+
+// Footer Styling
+.footer-logos-cart {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+// Product Detail Styling
+.product-detail-features{
+    .icon > svg {
+        color: #3ec53e;
+    }
+}
+.product-detail-list-price-wrapper{
+    .list-price-price {
+        font-size: 34px;
+        line-height: normal;
+        display: inline-block;
+    }
+}
+.product-detail-list-price-wrapper {
+    height: auto;
+}
+.product-detail-price-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 10px;
+    .list-price-badge {
+        margin-bottom: 0;
+    }
+    .product-detail-price.with-list-price {
+        font-size: 36px;
+        line-height: normal;
+    }
+    .list-price-percentage {
+        display: block;
+    }
+}
+
+// Manufacturer-Detail Page Styling
+.cms-element-product-listing{
+    .cms-listing-col{
+        &.zen-animate {
+            visibility: visible;
+        }
+    }
+}
+

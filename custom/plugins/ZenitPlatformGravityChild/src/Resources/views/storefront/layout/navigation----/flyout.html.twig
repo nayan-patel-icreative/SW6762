@@ -1,0 +1,37 @@
+{% sw_extends '@Storefront/storefront/layout/navigation/flyout.html.twig' %}
+
+{% block layout_navigation_flyout_teaser %}
+    {% if category.media or category.customFields.armbr_flyout_teaser_image %}
+        {% set customMediaImage = category.customFields.armbr_flyout_teaser_image %}
+        {% set mediaCollection = customMediaImage? searchMedia([customMediaImage], context.context) : '' %}
+        {% set imageMedia = customMediaImage? mediaCollection.get(customMediaImage) : '' %}
+        {% set categoryMedia = customMediaImage? imageMedia : category.media %}
+
+        <div class="col-4 col-xl-3">
+            <div class="navigation-flyout-teaser">
+{#                {% block layout_navigation_flyout_teaser_image %}#}
+
+{#                    {{parent}}#}
+{#                    <a class="navigation-flyout-teaser-image-container {% if categoryMedia %} show {% else %} hide {% endif %}"#}
+{#                       href="{{ seoUrl('frontend.navigation.page', { navigationId: navigationTree.category.id }) }}"#}
+{#                       title="{{ navigationTree.category.translated.name }}">#}
+{#                        {% sw_thumbnails 'navigation-flyout-teaser-image-thumbnails' with {#}
+{#                            media: categoryMedia,#}
+{#                            sizes: {#}
+{#                                'default': '310px'#}
+{#                            },#}
+{#                            attributes: {#}
+{#                                'class': 'navigation-flyout-teaser-image',#}
+{#                                'alt': (categoryMedia.translated.alt ?: ''),#}
+{#                                'title': (categoryMedia.translated.title ?: ''),#}
+{#                                'id': (navigationTree.category.id ?: ''),#}
+{#                                'src': (navigationTree.categoryMedia.url ?: ''),#}
+{#                                'data-object-fit': 'cover'#}
+{#                            }#}
+{#                        } %}#}
+{#                    </a>#}
+{#                {% endblock %}#}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

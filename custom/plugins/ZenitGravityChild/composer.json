@@ -1,0 +1,18 @@
+{
+  "name": "swag/theme-skeleton",
+  "description": "Theme ZenitGravityChild plugin",
+  "type": "shopware-platform-plugin",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "ZenitGravityChild\\": "src/"
+    }
+  },
+  "extra": {
+    "shopware-plugin-class": "ZenitGravityChild\\ZenitGravityChild",
+    "label": {
+      "de-DE": "Theme ZenitGravityChild plugin",
+      "en-GB": "Theme ZenitGravityChild plugin"
+    }
+  }
+}

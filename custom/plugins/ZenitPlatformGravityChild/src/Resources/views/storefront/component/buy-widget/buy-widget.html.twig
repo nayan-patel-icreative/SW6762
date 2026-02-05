@@ -1,0 +1,57 @@
+{% sw_extends '@zenit\PlatformGravity/storefront/component/buy-widget/buy-widget.html.twig' %}
+
+{% block buy_widget_ordernumber_container %}
+
+    {{ parent() }}
+    {% block custom_layout_footer_navigation_payment_logos %}
+        {% set footerPaymentLogos = false %}
+
+        {% for paymentMethod in page.salesChannelPaymentMethods %}
+            {% if paymentMethod.media %}
+                {% set footerPaymentLogos = true %}
+            {% endif %}
+        {% endfor %}
+
+        {% if footerPaymentLogos %}
+            <div class="footer-logos-cart">
+                {% block layout_footer_payment_logos %}
+                    {% for paymentMethod in page.salesChannelPaymentMethods %}
+                        {% block layout_footer_payment_logo %}
+                            {% if paymentMethod.media %}
+                                <div class="footer-logo is-payment">
+                                    {% set attributes = {
+                                        class: 'img-fluid footer-logo-image',
+                                        alt: (paymentMethod.media.translated.alt|default(paymentMethod.translated.name)),
+                                        title: (paymentMethod.media.translated.title|default(paymentMethod.translated.name))
+                                    } %}
+
+                                    {# ... @zenit - enables lazy loading for images #}
+                                    {% if config('zenitPlatformGravity.config.lazyloading') %}
+                                        {% set attributes = attributes|merge({ loading: 'lazy' }) %}
+                                    {% endif %}
+
+                                    {% sw_thumbnails 'footer-payment-image-thumbnails' with {
+                                        media: paymentMethod.media,
+                                        sizes: {
+                                            default: '100px'
+                                        },
+                                        attributes: {
+                                            class: 'img-fluid footer-logo-image',
+                                            alt: (paymentMethod.media.translated.alt ?: paymentMethod.translated.name),
+                                            title: (paymentMethod.media.translated.title ?: paymentMethod.translated.name)
+                                        }
+                                    } %}
+                                </div>
+                            {% endif %}
+                        {% endblock %}
+                    {% endfor %}
+                {% endblock %}
+            </div>
+        {% endif %}
+    {% endblock %}
+    {% block payment_message_prompt %}
+        <strong class="payment-message-prompt">{{ 'payment.message.prompt1'|trans|sw_sanitize }}</strong><br>
+        <strong class="payment-message-prompt">{{ 'payment.message.prompt2'|trans|sw_sanitize }}</strong>
+    {% endblock %}
+
+{% endblock %}

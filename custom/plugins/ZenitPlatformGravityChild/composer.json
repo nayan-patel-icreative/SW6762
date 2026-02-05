@@ -1,0 +1,23 @@
+{
+  "name": "swag/theme-skeleton",
+  "description": "Theme Gravity by Zenit Design Child",
+  "type": "shopware-platform-plugin",
+  "license": "proprietary",
+  "version": "1.0.0",
+  "autoload": {
+    "psr-4": {
+      "ZenitPlatformGravityChild\\": "src/"
+    }
+  },
+  "require": {
+    "shopware/core": "^6.6",
+    "shopware/storefront": "^6.6"
+  },
+  "extra": {
+    "shopware-plugin-class": "ZenitPlatformGravityChild\\ZenitPlatformGravityChild",
+    "label": {
+      "de-DE": "Theme Gravity Child",
+      "en-GB": "Theme Gravity Child"
+    }
+  }
+}

@@ -1,0 +1,278 @@
+.main-navigation-link-name[data-hover="Shop"] {
+    background: $sw-color-brand-primary;
+    color: #FFF;
+    border-radius: 6px;
+    padding: 10px;
+}
+ul.navigation-dropdown-list.dropdown-menu.is-level-1{
+    > .navigation-dropdown-item:nth-child(13){
+        > .navigation-dropdown-list.dropdown-menu.is-level-2{
+            li.navigation-dropdown-item:nth-child(3){
+                ul.navigation-dropdown-list.dropdown-menu.is-level-3 {
+                    top: 0% !important;
+                    bottom: auto !important;
+                    transform: translate(0%,-80%);
+                    @media(max-height:767px){
+                        transform: translate(0%, -70%);
+                    }
+                }
+            }
+        }
+    }
+    .navigation-dropdown-item:nth-child(11){
+        > .navigation-dropdown-list.dropdown-menu.is-level-2{
+            li.navigation-dropdown-item:nth-child(3){
+                ul.navigation-dropdown-list.dropdown-menu.is-level-3 {
+                    top: 0% !important;
+                    bottom: auto !important;
+                    transform: translate(0%,-70%);
+                    @media(max-height:767px){
+                        transform: translate(0%, -80%);
+                        overflow-x: hidden;
+                        max-height: 600px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// @include media-breakpoint-up(xl) {
+//     .header-main{
+//         .nav-main-scroller{
+//             .main-navigation{
+//                 position: static;
+//                 .container {
+//                     position: static;
+//                     width: 100%;
+//                     max-width: 100%;
+//                     margin: 0;
+//                     left: 0;
+//                     right: 0;
+//                     @media (min-width:1700px){
+//                         max-width: 1400px;
+//                     }
+//                 }
+//                 .main-navigation-menu {
+//                     position: static;
+//                     .main-navigation-link{
+//                         .icon > svg {
+//                             width: 12px;
+//                             height: 12px;
+//                         }
+//                     }
+//                     .navigation-flyouts{
+//                         width: 100%;
+//                         max-width: 100%;
+//                         top: 0;
+//                         left: 0;
+//                         right: 0;
+//                         @media (min-width:1700px){
+//                             left: auto;
+//                             right: auto;
+//                         }
+//                         .navigation-flyout{
+//                             &.is-open{
+//                                 width: 100%;
+//                                 max-width: 100%;
+//                             }
+//                         }
+//                     }
+//                     .navigation-flyouts {
+//                         .navigation-flyout {
+//                             .navigation-flyout-content {
+//                                 max-height: revert;
+//                             }
+//                         }
+//                         .navigation-flyout-categories {
+//                             &::-webkit-scrollbar {
+//                                 width: 6px; 
+//                             }
+//                             &::-webkit-scrollbar-track {
+//                                 background: #DDD;
+//                             }
+//                             &::-webkit-scrollbar-thumb {
+//                                 background: #888;
+//                                 border-radius: 4px;
+//                             }
+//                             &::-webkit-scrollbar-thumb:hover {
+//                                 background: #555; 
+//                             }
+//                             .navigation-flyout-categories-levels {
+//                                 position: absolute;
+//                                 top: 95px;
+//                                 left: 330px;
+//                                 right: 0;
+//                                 overflow: visible;
+//                                 height: auto;
+//                                 padding-left: 0;
+//                                 overscroll-behavior: contain;
+//                                 transform: none;
+//                                 visibility: hidden;
+//                                 opacity: 0;
+//                                 transition: all 0.2s;
+//                                 @include media-breakpoint-down(xxl) {
+//                                     left: 310px;
+//                                 }
+//                                 &::before {
+//                                     border-left: 1px solid #dadae5;
+//                                     content:'';
+//                                     height: 100%;
+//                                     position: absolute;
+//                                     left: 0px;
+//                                 }
+//                                 .navigation-flyout-categories-levels {
+//                                     top: 0px;
+//                                     &::before {
+//                                         left: 20px;
+//                                     }
+//                                 }
+//                             }
+                    
+//                             &.is-level-0 {
+//                                 display: inline-block;
+//                                 width: 300px;
+//                                 padding: 20px;
+//                                 list-style: none;
+//                                 column-count: revert;
+//                                 overflow: visible;
+//                                 @include media-breakpoint-down(xxl) {
+//                                     width: 280px;
+//                                 }
+//                                 >.navigation-flyout-col::before {
+//                                     border-left: 0;
+//                                 }
+//                             }
+                    
+//                             &.is-level-1,
+//                             &.is-level-2,
+//                             &.is-level-3 {
+//                                 width: 350px;
+//                                 padding: 20px;
+//                                 max-width: 100%;
+//                                 border: 0;
+//                             }
+                    
+//                             height: 450px;
+//                             overflow-y: auto;
+//                             overflow-x: hidden;
+//                             display: inline-block;
+                    
+//                             .navigation-flyout-col {
+//                                 list-style: none;
+//                                 padding: 0 0px;
+//                                 display: block;
+//                                 flex: revert;
+//                                 border-radius: 6px;
+//                                 max-width: 250px;
+//                                 white-space: normal;
+//                                 margin-bottom: 2px;
+//                                 transition: all 0.3s ease; 
+//                                 width: 300px;
+//                                 position: static;
+//                                 &.child-level-0{
+//                                     @include media-breakpoint-down(xxl) {
+//                                         max-width: 230px;
+//                                     }
+//                                 }
+//                                 &.child-level-1{
+//                                     .navigation-flyout-categories-levels {
+//                                         left: 330px;
+//                                         @include media-breakpoint-down(xxl) {
+//                                             left: 290px;
+//                                         }
+//                                     }
+//                                 }
+//                                 .navigation-flyout-link{
+//                                     font-size: 16px;
+//                                     padding: 8px 4px;
+//                                     .icon {
+//                                         width: 14px;
+//                                         height: 14px;
+//                                         svg {
+//                                             top: 3px;
+//                                             transform: rotate(90deg);
+//                                             transition: all 0.2s ease-in; 
+//                                         }
+//                                     }
+//                                 }
+//                                 &.child-level-0 {
+//                                     transition: all 0.3s ease; 
+//                                     span {
+//                                         transition: all 0.3s ease; 
+//                                     }
+//                                     &.selected {
+//                                         background-color: #36A9E1;
+//                                         color: #FFF;
+//                                         > .navigation-flyout-link{
+//                                             span {
+//                                                 color: #FFF;
+//                                                 svg {
+//                                                     transform: rotate(0deg);
+//                                                     transition: all 0.2s ease-out; 
+//                                                 }
+//                                             }
+//                                         }
+//                                     }
+//                                     &.selected > .navigation-flyout-categories-levels {
+//                                         visibility: visible;
+//                                         opacity: 1;
+//                                     }
+//                                 }
+                    
+//                                 &.child-level-1:hover > .navigation-flyout-categories-levels,
+//                                 &.child-level-2:hover > .navigation-flyout-categories-levels {
+//                                     visibility: visible;
+//                                     opacity: 1;
+//                                 }
+//                                 &.child-level-2,
+//                                 &.child-level-1,
+//                                 &.child-level-3{
+//                                     transition: all 0.3s ease; 
+//                                     span {
+//                                         transition: all 0.3s ease; 
+//                                     }
+//                                     &:hover {
+//                                         background-color: #36A9E1;
+//                                         color: #FFF;
+//                                         > .navigation-flyout-link{
+//                                             span {
+//                                                 color: #FFF;
+//                                                 svg {
+//                                                     transform: rotate(0deg);
+//                                                     transition: all 0.2s ease-out; 
+//                                                 }
+//                                             }
+//                                         }
+//                                     }
+//                                 }
+//                             }
+//                         }
+                    
+//                         > div.navigation-flyout {
+//                             .navigation-flyout-categories {
+//                                 .navigation-flyout-categories-levels {
+//                                     .navigation-flyout-categories.is-level-1,
+//                                     .navigation-flyout-categories.is-level-2 {
+//                                         width: 320px;
+//                                         padding: 20px;
+//                                         max-width: 100%;
+//                                         border: 0;
+//                                         @include media-breakpoint-down(xxl) {
+//                                             width: 280px;
+//                                         }
+//                                     }
+//                                     .navigation-flyout-categories.is-level-1{
+//                                         @include media-breakpoint-down(xxl) {
+//                                             padding: 20px 0;
+//                                         }
+//                                     }
+//                                 }
+//                             }
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }

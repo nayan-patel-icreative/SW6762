@@ -1,0 +1,117 @@
+{% sw_extends '@zenit\PlatformGravity/storefront/page/checkout/_page.html.twig' %}
+
+{% block page_checkout_aside_container %}
+    <div class="checkout-aside-container" {% if theme_config('zen-checkout-sticky') %}data-zen-sticky="true"{% endif %}>
+    {{ block('page_checkout_aside_summary') }}
+
+    {# ... @zenit - add conditional to block 'page_checkout_additional' and move inside checkout aside #}
+    {% if theme_config('zen-checkout-layout') is same as ('two-column') %}
+        {{ block('page_checkout_additional') }}
+    {% endif %}
+
+    {{ block('page_checkout_aside_actions') }}
+    {% set cartAdvantages =  context.salesChannel.translated.customFields.advantages_cart_page %}
+
+    {% if cartAdvantages %}
+        {% set featuresList = cartAdvantages|trim|trim(';')|split(';') %}
+        {% set featuresIcon = theme_config('zen-product-details-features-icon')|default('checkmark') %}
+        {% set featuresStyle = theme_config('zen-product-details-features-style')|default('standard') %}
+        {% if featuresStyle == 'standard' %}
+            {% set listClasses =  'list-group list-group-flush' %}
+        {% else %}
+            {% set listClasses =  'list-unstyled' %}
+        {% endif %}
+
+        {% if featuresStyle == 'standard' %}
+            {% set listItemClasses =  'list-group-item bg-transparent' %}
+        {% else %}
+            {% set listItemClasses =  'list-item' %}
+        {% endif %}
+
+        <div class="product-detail-features mt-4 mb-4">
+            {% if theme_config('zen-product-details-features-headline') %}
+                <div class="product-detail-features-headline h4">{{ 'zentheme.detail.features'|trans }}</div>
+            {% endif %}
+
+            {% block zen_product_features_items %}
+                <ul class="{{ listClasses }}">
+                    {% for feature in featuresList %}
+                        {% block zen_product_features_item %}
+                            <li class="{{ listItemClasses }}">
+                                {% block zen_product_features_item_icon %}
+                                    {% if featuresIcon == 'arrow-medium-right'
+                                        or featuresIcon == 'arrow-large-right'
+                                        or featuresIcon == 'medium-double-right'
+                                        or featuresIcon == 'arrow-large-double-right'
+                                        or featuresIcon == 'arrow-medium-double-right'
+                                        or featuresIcon == 'plus' %}
+                                        {% sw_include '@Storefront/storefront/utilities/icon.html.twig' with { name: featuresIcon, pack: 'solid', class: 'sm me-3 feature-icon' } %}
+                                    {% else %}
+                                        {% sw_include '@Storefront/storefront/utilities/icon.html.twig' with { name: featuresIcon, class: 'sm me-3 feature-icon' } %}
+                                    {% endif %}
+                                {% endblock %}
+
+                                {% block zen_product_features_item_text %}
+                                    <span class="feature-text">
+                                           {{ feature }}
+                                        </span>
+                                {% endblock %}
+                            </li>
+                        {% endblock %}
+                    {% endfor %}
+                </ul>
+            {% endblock %}
+        </div>
+    {% endif %}
+    {% block custom_layout_footer_navigation_payment_logos %}
+        {% set footerPaymentLogos = false %}
+
+        {% for paymentMethod in page.salesChannelPaymentMethods %}
+            {% if paymentMethod.media %}
+                {% set footerPaymentLogos = true %}
+            {% endif %}
+        {% endfor %}
+
+        {% if footerPaymentLogos %}
+            <div class="footer-logos-cart">
+                {% block layout_footer_payment_logos %}
+                    {% for paymentMethod in page.salesChannelPaymentMethods %}
+                        {% block layout_footer_payment_logo %}
+                            {% if paymentMethod.media %}
+                                <div class="footer-logo is-payment">
+                                    {% set attributes = {
+                                        class: 'img-fluid footer-logo-image',
+                                        alt: (paymentMethod.media.translated.alt|default(paymentMethod.translated.name)),
+                                        title: (paymentMethod.media.translated.title|default(paymentMethod.translated.name))
+                                    } %}
+
+                                    {# ... @zenit - enables lazy loading for images #}
+                                    {% if config('zenitPlatformGravity.config.lazyloading') %}
+                                        {% set attributes = attributes|merge({ loading: 'lazy' }) %}
+                                    {% endif %}
+
+                                    {% sw_thumbnails 'footer-payment-image-thumbnails' with {
+                                        media: paymentMethod.media,
+                                        sizes: {
+                                            default: '100px'
+                                        },
+                                        attributes: {
+                                            class: 'img-fluid footer-logo-image',
+                                            alt: (paymentMethod.media.translated.alt ?: paymentMethod.translated.name),
+                                            title: (paymentMethod.media.translated.title ?: paymentMethod.translated.name)
+                                        }
+                                    } %}
+                                </div>
+                            {% endif %}
+                        {% endblock %}
+                    {% endfor %}
+                {% endblock %}
+            </div>
+        {% endif %}
+    {% endblock %}
+    {% block payment_message_prompt %}
+        <strong class="payment-message-prompt">{{ 'payment.message.prompt1'|trans|sw_sanitize }}</strong><br>
+        <strong class="payment-message-prompt">{{ 'payment.message.prompt2'|trans|sw_sanitize }}</strong>
+    {% endblock %}
+    </div>
+{% endblock %}

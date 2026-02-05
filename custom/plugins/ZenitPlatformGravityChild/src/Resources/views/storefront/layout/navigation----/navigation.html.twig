@@ -1,0 +1,118 @@
+{% sw_extends '@Storefront/storefront/layout/navigation/navigation.html.twig' %}
+
+{% block layout_main_navigation %}
+    <div class="main-navigation"
+         id="mainNavigation"
+         data-flyout-menu="true">
+        {% block layout_main_navigation_navbar %}
+            <div class="container">
+                {% block layout_main_navigation_menu %}
+                    <ul class="nav main-navigation-menu armbr-navigation-menu">
+                        {% set homeLabel = context.salesChannel.translated.homeName|default("general.homeLink"|trans) %}
+                        {% block layout_main_navigation_menu_home %}
+                            {% if twtNavMainHomeLinkCompatibility == 2 %}
+                                {% if twtNavMainHomeLinkShow > 1 %}
+                                    {% if context.salesChannel.translated.homeEnabled %}
+                                        <li class="armbr-nav-menu-link">
+                                            <a class="nav-link main-navigation-link{% if controllerAction is same as('home') %} active{% endif %} home-link"
+                                               href="{{ path('frontend.home.page') }}"
+                                               itemprop="url"
+                                               title="{{ homeLabel|striptags }}">
+                                                <div class="main-navigation-link-text">
+                                                    <span itemprop="name">{{ homeLabel|sw_sanitize }}</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+
+                            {% block layout_main_navigation_menu_items %}
+                                {% set activePath = page.header.navigation.active.path %}
+                                {% for treeItem in page.header.navigation.tree %}
+                                    {% set category = treeItem.category %}
+                                    {% set name = category.translated.name %}
+
+                                    {#  @deprecated tag:v6.5.0 - Use "category.id" directly instead. #}
+                                    {% set categorId = category.id %}
+
+                                    {# For menu category icon #}
+                                    {% set customMediaImage = treeItem.category.customFields.armbr_flyout_teaser_image %}
+                                    {% set mediaCollection = customMediaImage? searchMedia([customMediaImage], context.context) : '' %}
+                                    {% set imageMedia = customMediaImage? mediaCollection.get(customMediaImage) : '' %}
+                                    {% set categoryMedia = customMediaImage? imageMedia : treeItem.category.media %}
+
+                                    {% block layout_main_navigation_menu_item %}
+                                        {% if category.type == 'folder' %}
+                                            <li class="nav-link main-navigation-link armbr-nav-menu-link"
+                                                {% if treeItem.children|length > 0 %}
+                                                    data-flyout-menu-trigger="{{ category.id }}"
+                                                {% endif %}
+                                                title="{{ name }}">
+                                                <div class="main-navigation-link-text">
+                                                    <span itemprop="name" data-image="{% if categoryMedia %}{{ categoryMedia.url }}{% endif %}">{{ name }}</span>
+                                                </div>
+                                            </li>
+                                        {% else %}
+                                            <li class="armbr-nav-menu-link">
+                                                <a class="nav-link main-navigation-link{% if category.id == page.header.navigation.active.id or category.id in activePath %} active{% endif %} "
+                                                   href="{{ category_url(category) }}"
+                                                   itemprop="url"
+                                                   {% if treeItem.children|length > 0 %}data-flyout-menu-trigger="{{ category.id }}"{% endif %}
+                                                    {% if category_linknewtab(category) %}target="_blank"{% endif %}
+                                                   title="{{ name }}"
+                                                   data-image="{% if categoryMedia %}{{ categoryMedia.url }}{% endif %}"
+                                                >
+                                                    <div class="main-navigation-link-text">
+                                                        <span itemprop="name">
+                                                            {{ name }}
+
+                                                            {% if treeItem.children|length > 0 %}
+                                                                <span class="main-navigation__has-child">
+                                                                {% sw_icon 'arrow-head-down' %}
+                                                            </span>
+                                                            {% endif %}
+                                                        </span>
+                                                        {% if category.translated.customFields is defined and category.translated.customFields.armbr_cat_menu_icon is defined %}
+                                                            <span>
+                                                                {% set iconId = category.translated.customFields.armbr_cat_menu_icon %}
+                                                                {% set iconMediaCollection = searchMedia([iconId], context.context) %}
+                                                                {% set iconImageMedia = iconMediaCollection.get(iconId) %}
+                                                                {% set altTextForIcon = iconImageMedia.title? iconImageMedia.title : iconImageMedia.fileName %}
+                                                                {% if iconImageMedia %}
+                                                                    <img class="armbr-category-image-icon"
+                                                                         src="{{ iconImageMedia.url }}"
+                                                                         alt="{{ altTextForIcon }}"/>
+                                                                {% endif %}
+                                                            </span>
+                                                        {% endif %}
+                                                    </div>
+                                                </a>
+                                                {% if treeItem.category.childCount > 0 %}
+                                                    {% if treeItem.children|length > 0 %}
+                                                        <div class="navigation-flyouts">
+                                                            {% block layout_main_navigation_menu_flyout %}
+                                                                <div class="navigation-flyout"
+                                                                     data-flyout-menu-id="{{ treeItem.category.id }}">
+                                                                    <div class="container">
+                                                                        {% block layout_main_navigation_menu_flyout_include %}
+                                                                            {% sw_include '@Storefront/storefront/layout/navigation/flyout.html.twig' with {navigationTree: treeItem, level: level+1, page: page} only %}
+                                                                        {% endblock %}
+                                                                    </div>
+                                                                </div>
+                                                            {% endblock %}
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </li>
+                                        {% endif %}
+                                    {% endblock %}
+                                {% endfor %}
+                            {% endblock %}
+                        {% endblock %}
+                    </ul>
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
