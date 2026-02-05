@@ -1,8 +1,80 @@
 {
-    "swag-example": {
-        "general": {
-            "mainMenuItemGeneral": "My custom module",
-            "descriptionTextModule": "Manage this custom module here"
+    "blog-system": {
+        "blog": {
+            "list": {
+                "title": "Blogs",
+                "emptyTitle": "Noch keine Blogs",
+                "emptySubline": "Erstelle deinen ersten Blog.",
+                "column": {
+                    "name": "Name",
+                    "active": "Aktiv",
+                    "author": "Autor",
+                    "createdAt": "Erstellt"
+                }
+            },
+            "detail": {
+                "title": "Blog",
+                "generalCard": "Allgemein",
+                "productsCard": "Produkte",
+                "contentCard": "Inhalt",
+                "field": {
+                    "name": "Name",
+                    "author": "Autor",
+                    "active": "Aktiv",
+                    "category": "Kategorie",
+                    "releaseDate": "Veröffentlichungsdatum (ISO, z.B. 2026-01-30T10:00:00+00:00)",
+                    "description": "Beschreibung"
+                }
+            },
+            "create": {
+                "title": "Blog erstellen"
+            },
+            "notification": {
+                "saved": "Blog gespeichert",
+                "deleted": "Blog gelöscht",
+                "deleteError": "Blog konnte nicht gelöscht werden",
+                "loadError": "Blog konnte nicht geladen werden",
+                "saveError": "Blog konnte nicht gespeichert werden"
+            }
+        },
+        "category": {
+            "list": {
+                "title": "Blog-Kategorien",
+                "emptyTitle": "Noch keine Blog-Kategorien",
+                "emptySubline": "Erstelle deine erste Blog-Kategorie.",
+                "column": {
+                    "name": "Name",
+                    "createdAt": "Erstellt"
+                }
+            },
+            "detail": {
+                "title": "Blog-Kategorie",
+                "generalCard": "Allgemein",
+                "field": {
+                    "name": "Name"
+                }
+            },
+            "create": {
+                "title": "Blog-Kategorie erstellen"
+            },
+            "notification": {
+                "saved": "Blog-Kategorie gespeichert",
+                "deleted": "Blog-Kategorie gelöscht",
+                "deleteError": "Blog-Kategorie konnte nicht gelöscht werden",
+                "loadError": "Blog-Kategorie konnte nicht geladen werden",
+                "saveError": "Blog-Kategorie konnte nicht gespeichert werden"
+            }
+        },
+        "common": {
+            "create": "Erstellen",
+            "save": "Speichern",
+            "delete": "Löschen",
+            "cancel": "Abbrechen",
+            "yes": "Ja",
+            "no": "Nein",
+            "initializing": "Initialisiere...",
+            "loadError": "Konnte nicht geladen werden",
+            "edit": "Bearbeiten"
         }
     }
 }

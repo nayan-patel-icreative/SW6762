@@ -58,9 +58,13 @@ Shopware.Component.register('blog-category-detail', {
             }).catch((error) => {
                 this.isLoading = false;
                 this.createNotificationError({
-                    message: this.getErrorMessage(error, 'Could not load blog category'),
+                    message: this.getErrorMessage(error, this.$tc('blog-system.category.notification.loadError')),
                 });
             });
+        },
+
+        onChangeLanguage({ languageId }) {
+            return this.loadEntity();
         },
 
         onSave() {
@@ -76,12 +80,12 @@ Shopware.Component.register('blog-category-detail', {
                 this.isSaveSuccessful = true;
 
                 this.createNotificationSuccess({
-                    message: 'Blog category saved',
+                    message: this.$tc('blog-system.category.notification.saved'),
                 });
             }).catch((error) => {
                 this.isLoading = false;
                 this.createNotificationError({
-                    message: this.getErrorMessage(error, 'Could not save blog category'),
+                    message: this.getErrorMessage(error, this.$tc('blog-system.category.notification.saveError')),
                 });
             });
         },
@@ -95,14 +99,14 @@ Shopware.Component.register('blog-category-detail', {
             return this.repository.delete(this.blogCategory.id, Shopware.Context.api).then(() => {
                 this.isLoading = false;
                 this.createNotificationSuccess({
-                    message: 'Blog category deleted',
+                    message: this.$tc('blog-system.category.notification.deleted'),
                 });
 
                 return this.$router.push({ name: 'blog.category.list' });
             }).catch((error) => {
                 this.isLoading = false;
                 this.createNotificationError({
-                    message: this.getErrorMessage(error, 'Could not delete blog category'),
+                    message: this.getErrorMessage(error, this.$tc('blog-system.category.notification.deleteError')),
                 });
             });
         },

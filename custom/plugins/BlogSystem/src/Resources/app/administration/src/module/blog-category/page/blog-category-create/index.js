@@ -26,11 +26,19 @@ Shopware.Component.register('blog-category-create', {
     },
 
     created() {
-        this.blogCategory = this.repository.create(Shopware.Context.api);
-        this.blogCategory.name = '';
+        this.createEntity();
     },
 
     methods: {
+        createEntity() {
+            this.blogCategory = this.repository.create(Shopware.Context.api);
+            this.blogCategory.name = '';
+        },
+
+        onChangeLanguage({ languageId }) {
+            this.createEntity();
+        },
+
         onSave() {
             this.isLoading = true;
             this.isSaveSuccessful = false;
@@ -40,7 +48,7 @@ Shopware.Component.register('blog-category-create', {
                 this.isSaveSuccessful = true;
 
                 this.createNotificationSuccess({
-                    message: 'Blog category saved',
+                    message: this.$tc('blog-system.category.notification.saved'),
                 });
 
                 return this.$router.push({
@@ -50,7 +58,7 @@ Shopware.Component.register('blog-category-create', {
             }).catch(() => {
                 this.isLoading = false;
                 this.createNotificationError({
-                    message: 'Could not save blog category',
+                    message: this.$tc('blog-system.category.notification.saveError'),
                 });
             });
         },

@@ -1,14 +1,19 @@
 <sw-page class="blog-category-list">
     <template #smart-bar-header>
         <h2>
-            Blog Categories
+            {% verbatim %}{{ $tc('blog-system.category.list.title') }}{% endverbatim %}
             <template v-if="!isLoading">({{ total }})</template>
         </h2>
     </template>
 
     <template #smart-bar-actions>
+        <sw-language-switch
+            :disabled="isLoading"
+            @on-change="onChangeLanguage"
+            @change="onChangeLanguage" />
+
         <mt-button variant="primary" @click="$router.push({ name: 'blog.category.create' })">
-            Create
+            {% verbatim %}{{ $tc('blog-system.common.create') }}{% endverbatim %}
         </mt-button>
     </template>
 
@@ -58,7 +63,7 @@
 
         <sw-empty-state
             v-else
-            title="No blog categories yet"
-            subline="Create your first blog category." />
+            :title="$tc('blog-system.category.list.emptyTitle')"
+            :subline="$tc('blog-system.category.list.emptySubline')" />
     </template>
 </sw-page>

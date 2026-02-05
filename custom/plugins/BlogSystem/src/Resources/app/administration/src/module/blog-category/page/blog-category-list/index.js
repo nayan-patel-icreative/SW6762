@@ -34,7 +34,7 @@ Shopware.Component.register('blog-category-list', {
                 {
                     property: 'name',
                     dataIndex: 'name',
-                    label: 'Name',
+                    label: this.$tc('blog-system.category.list.column.name'),
                     primary: true,
                     inlineEdit: 'string',
                     routerLink: 'blog.category.detail',
@@ -43,7 +43,7 @@ Shopware.Component.register('blog-category-list', {
                 {
                     property: 'createdAt',
                     dataIndex: 'createdAt',
-                    label: 'Created',
+                    label: this.$tc('blog-system.category.list.column.createdAt'),
                     sortable: true,
                     allowResize: true,
                 },
@@ -76,18 +76,22 @@ Shopware.Component.register('blog-category-list', {
             });
         },
 
+        onChangeLanguage({ languageId }) {
+            return this.getList();
+        },
+
         onDelete(item) {
             this.isLoading = true;
 
             return this.repository.delete(item.id, Shopware.Context.api).then(() => {
                 this.createNotificationSuccess({
-                    message: 'Blog category deleted',
+                    message: this.$tc('blog-system.category.notification.deleted'),
                 });
 
                 return this.getList();
             }).catch(() => {
                 this.createNotificationError({
-                    message: 'Could not delete blog category',
+                    message: this.$tc('blog-system.category.notification.deleteError'),
                 });
 
                 return this.getList();
@@ -97,11 +101,11 @@ Shopware.Component.register('blog-category-list', {
         onInlineEditSave(promise) {
             return promise.then(() => {
                 this.createNotificationSuccess({
-                    message: 'Blog category saved',
+                    message: this.$tc('blog-system.category.notification.saved'),
                 });
             }).catch(() => {
                 this.createNotificationError({
-                    message: 'Could not save blog category',
+                    message: this.$tc('blog-system.category.notification.saveError'),
                 });
             });
         },

@@ -1,14 +1,19 @@
 <sw-page class="blog-detail">
     <template #smart-bar-header>
         <h2>
-            Blog
+            {% verbatim %}{{ $tc('blog-system.blog.detail.title') }}{% endverbatim %}
             <template v-if="blog && blog.name">- {{ blog.name }}</template>
         </h2>
     </template>
 
     <template #smart-bar-actions>
+        <sw-language-switch
+            :disabled="isLoading || !blog"
+            @on-change="onChangeLanguage"
+            @change="onChangeLanguage" />
+
         <mt-button variant="danger" :disabled="isLoading || !blog" @click="onDelete">
-            Delete
+            {% verbatim %}{{ $tc('blog-system.common.delete') }}{% endverbatim %}
         </mt-button>
 
         <sw-button-process
@@ -18,7 +23,7 @@
             :disabled="isLoading || !blog"
             @update:process-success="isSaveSuccessful = false"
             @click="onSave">
-            Save
+            {% verbatim %}{{ $tc('blog-system.common.save') }}{% endverbatim %}
         </sw-button-process>
     </template>
 
@@ -26,23 +31,24 @@
         <sw-loader v-if="isLoading" />
 
         <sw-card-view v-else-if="blog">
-            <mt-card :title="'General'" :isLoading="isLoading">
-                <mt-text-field v-model="blog.name" required type="text" label="Name" />
-                <mt-text-field v-model="blog.author" required type="text" label="Author" />
-                <mt-switch v-model="blog.active" bordered label="Active" />
+            <mt-card :title="$tc('blog-system.blog.detail.generalCard')" :isLoading="isLoading">
+                <mt-text-field v-model="blog.name" required type="text" :label="$tc('blog-system.blog.detail.field.name')" />
+                <mt-text-field v-model="blog.author" required type="text" :label="$tc('blog-system.blog.detail.field.author')" />
+                <mt-switch v-model="blog.active" bordered :label="$tc('blog-system.blog.detail.field.active')" />
 
                 <sw-entity-single-select
                     v-model:value="blog.blogCategoryId"
                     entity="blog_category"
-                    label="Category" />
+                    :context="languageContext"
+                    :label="$tc('blog-system.blog.detail.field.category')" />
 
                 <mt-text-field
                     v-model="releaseDateInput"
                     type="text"
-                    label="Release date (ISO, e.g. 2026-01-30T10:00:00+00:00)" />
+                    :label="$tc('blog-system.blog.detail.field.releaseDate')" />
             </mt-card>
 
-            <mt-card :title="'Products'" :isLoading="isLoading">
+            <mt-card :title="$tc('blog-system.blog.detail.productsCard')" :isLoading="isLoading">
                 <sw-entity-multi-id-select
                     name="blog-products"
                     :repository="productRepository"
@@ -51,11 +57,11 @@
                     @update:value="productIds = $event" />
             </mt-card>
 
-            <mt-card :title="'Content'" :isLoading="isLoading">
-                <mt-textarea v-model="blog.description" label="Description" />
+            <mt-card :title="$tc('blog-system.blog.detail.contentCard')" :isLoading="isLoading">
+                <mt-textarea v-model="blog.description" :label="$tc('blog-system.blog.detail.field.description')" />
             </mt-card>
         </sw-card-view>
 
-        <sw-empty-state v-else title="Could not load blog" />
+        <sw-empty-state v-else :title="$tc('blog-system.blog.notification.loadError')" />
     </template>
 </sw-page>

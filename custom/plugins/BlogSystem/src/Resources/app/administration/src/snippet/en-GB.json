@@ -1,8 +1,80 @@
 {
-    "swag-example": {
-        "general": {
-            "mainMenuItemGeneral": "My custom module",
-            "descriptionTextModule": "Manage this custom module here"
+    "blog-system": {
+        "blog": {
+            "list": {
+                "title": "Blogs",
+                "emptyTitle": "No blogs yet",
+                "emptySubline": "Create your first blog.",
+                "column": {
+                    "name": "Name",
+                    "active": "Active",
+                    "author": "Author",
+                    "createdAt": "Created"
+                }
+            },
+            "detail": {
+                "title": "Blog",
+                "generalCard": "General",
+                "productsCard": "Products",
+                "contentCard": "Content",
+                "field": {
+                    "name": "Name",
+                    "author": "Author",
+                    "active": "Active",
+                    "category": "Category",
+                    "releaseDate": "Release date (ISO, e.g. 2026-01-30T10:00:00+00:00)",
+                    "description": "Description"
+                }
+            },
+            "create": {
+                "title": "Create blog"
+            },
+            "notification": {
+                "saved": "Blog saved",
+                "deleted": "Blog deleted",
+                "deleteError": "Could not delete blog",
+                "loadError": "Could not load blog",
+                "saveError": "Could not save blog"
+            }
+        },
+        "category": {
+            "list": {
+                "title": "Blog Categories",
+                "emptyTitle": "No blog categories yet",
+                "emptySubline": "Create your first blog category.",
+                "column": {
+                    "name": "Name",
+                    "createdAt": "Created"
+                }
+            },
+            "detail": {
+                "title": "Blog category",
+                "generalCard": "General",
+                "field": {
+                    "name": "Name"
+                }
+            },
+            "create": {
+                "title": "Create blog category"
+            },
+            "notification": {
+                "saved": "Blog category saved",
+                "deleted": "Blog category deleted",
+                "deleteError": "Could not delete blog category",
+                "loadError": "Could not load blog category",
+                "saveError": "Could not save blog category"
+            }
+        },
+        "common": {
+            "create": "Create",
+            "save": "Save",
+            "delete": "Delete",
+            "cancel": "Cancel",
+            "yes": "Yes",
+            "no": "No",
+            "initializing": "Initializing...",
+            "loadError": "Could not load",
+            "edit": "Edit"
         }
     }
 }

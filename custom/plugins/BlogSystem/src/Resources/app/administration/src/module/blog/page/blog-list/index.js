@@ -34,7 +34,7 @@ Shopware.Component.register('blog-list', {
                 {
                     property: 'name',
                     dataIndex: 'name',
-                    label: 'Name',
+                    label: this.$tc('blog-system.blog.list.column.name'),
                     primary: true,
                     inlineEdit: 'string',
                     routerLink: 'blog.detail',
@@ -43,21 +43,21 @@ Shopware.Component.register('blog-list', {
                 {
                     property: 'active',
                     dataIndex: 'active',
-                    label: 'Active',
+                    label: this.$tc('blog-system.blog.list.column.active'),
                     sortable: true,
                     allowResize: true,
                 },
                 {
                     property: 'author',
                     dataIndex: 'author',
-                    label: 'Author',
+                    label: this.$tc('blog-system.blog.list.column.author'),
                     sortable: true,
                     allowResize: true,
                 },
                 {
                     property: 'createdAt',
                     dataIndex: 'createdAt',
-                    label: 'Created',
+                    label: this.$tc('blog-system.blog.list.column.createdAt'),
                     sortable: true,
                     allowResize: true,
                 },
@@ -90,18 +90,22 @@ Shopware.Component.register('blog-list', {
             });
         },
 
+        onChangeLanguage({ languageId }) {
+            return this.getList();
+        },
+
         onDelete(item) {
             this.isLoading = true;
 
             return this.repository.delete(item.id, Shopware.Context.api).then(() => {
                 this.createNotificationSuccess({
-                    message: 'Blog deleted',
+                    message: this.$tc('blog-system.blog.notification.deleted'),
                 });
 
                 return this.getList();
             }).catch(() => {
                 this.createNotificationError({
-                    message: 'Could not delete blog',
+                    message: this.$tc('blog-system.blog.notification.deleteError'),
                 });
 
                 return this.getList();
@@ -111,11 +115,11 @@ Shopware.Component.register('blog-list', {
         onInlineEditSave(promise) {
             return promise.then(() => {
                 this.createNotificationSuccess({
-                    message: 'Blog saved',
+                    message: this.$tc('blog-system.blog.notification.saved'),
                 });
             }).catch(() => {
                 this.createNotificationError({
-                    message: 'Could not save blog',
+                    message: this.$tc('blog-system.blog.notification.saveError'),
                 });
             });
         },

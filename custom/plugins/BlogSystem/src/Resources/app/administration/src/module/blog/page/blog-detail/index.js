@@ -26,6 +26,10 @@ Shopware.Component.register('blog-detail', {
             return this.repositoryFactory.create('blog');
         },
 
+        languageContext() {
+            return Shopware.Context.api;
+        },
+
         productRepository() {
             return this.repositoryFactory.create('product');
         },
@@ -75,9 +79,13 @@ Shopware.Component.register('blog-detail', {
             }).catch((error) => {
                 this.isLoading = false;
                 this.createNotificationError({
-                    message: this.getErrorMessage(error, 'Could not load blog'),
+                    message: this.getErrorMessage(error, this.$tc('blog-system.blog.notification.loadError')),
                 });
             });
+        },
+
+        onChangeLanguage({ languageId }) {
+            return this.loadEntity();
         },
 
         onSave() {
@@ -104,12 +112,12 @@ Shopware.Component.register('blog-detail', {
                 this.isSaveSuccessful = true;
 
                 this.createNotificationSuccess({
-                    message: 'Blog saved',
+                    message: this.$tc('blog-system.blog.notification.saved'),
                 });
             }).catch((error) => {
                 this.isLoading = false;
                 this.createNotificationError({
-                    message: this.getErrorMessage(error, 'Could not save blog'),
+                    message: this.getErrorMessage(error, this.$tc('blog-system.blog.notification.saveError')),
                 });
             });
         },
@@ -123,14 +131,14 @@ Shopware.Component.register('blog-detail', {
             return this.repository.delete(this.blog.id, Shopware.Context.api).then(() => {
                 this.isLoading = false;
                 this.createNotificationSuccess({
-                    message: 'Blog deleted',
+                    message: this.$tc('blog-system.blog.notification.deleted'),
                 });
 
                 return this.$router.push({ name: 'blog.list' });
             }).catch((error) => {
                 this.isLoading = false;
                 this.createNotificationError({
-                    message: this.getErrorMessage(error, 'Could not delete blog'),
+                    message: this.getErrorMessage(error, this.$tc('blog-system.blog.notification.deleteError')),
                 });
             });
         },

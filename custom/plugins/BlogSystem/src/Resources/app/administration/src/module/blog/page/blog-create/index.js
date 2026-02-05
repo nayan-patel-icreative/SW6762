@@ -26,6 +26,10 @@ Shopware.Component.register('blog-create', {
             return this.repositoryFactory.create('blog');
         },
 
+        languageContext() {
+            return Shopware.Context.api;
+        },
+
         productRepository() {
             return this.repositoryFactory.create('product');
         },
@@ -38,16 +42,26 @@ Shopware.Component.register('blog-create', {
     },
 
     created() {
-        this.blog = this.repository.create(Shopware.Context.api);
-        this.blog.active = false;
-        this.blog.author = '';
-        this.blog.name = '';
-        this.blog.description = '';
-        this.blog.blogCategoryId = null;
-        this.blog.releaseDate = null;
+        this.createEntity();
     },
 
     methods: {
+        createEntity() {
+            this.blog = this.repository.create(Shopware.Context.api);
+            this.blog.active = false;
+            this.blog.author = '';
+            this.blog.name = '';
+            this.blog.description = '';
+            this.blog.blogCategoryId = null;
+            this.blog.releaseDate = null;
+            this.releaseDateInput = '';
+            this.productIds = [];
+        },
+
+        onChangeLanguage({ languageId }) {
+            this.createEntity();
+        },
+
         getErrorMessage(error, fallbackMessage) {
             const apiErrors = error?.response?.data?.errors;
             if (Array.isArray(apiErrors) && apiErrors.length > 0) {
@@ -82,7 +96,7 @@ Shopware.Component.register('blog-create', {
                 this.isSaveSuccessful = true;
 
                 this.createNotificationSuccess({
-                    message: 'Blog saved',
+                    message: this.$tc('blog-system.blog.notification.saved'),
                 });
 
                 return this.$router.push({
@@ -92,7 +106,7 @@ Shopware.Component.register('blog-create', {
             }).catch((error) => {
                 this.isLoading = false;
                 this.createNotificationError({
-                    message: this.getErrorMessage(error, 'Could not save blog'),
+                    message: this.getErrorMessage(error, this.$tc('blog-system.blog.notification.saveError')),
                 });
             });
         },
