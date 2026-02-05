@@ -43,6 +43,10 @@
                 </router-link>
             </template>
 
+            <template #column-products="{ item }">
+                {{ getProductNames(item) }}
+            </template>
+
             <template #column-active="{ item }">
                 <sw-label appearance="pill" :variant="item.active ? 'success' : 'danger'">
                     {{ item.active ? 'Yes' : 'No' }}

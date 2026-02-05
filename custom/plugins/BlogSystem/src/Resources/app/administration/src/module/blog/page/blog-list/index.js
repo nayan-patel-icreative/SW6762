@@ -41,6 +41,13 @@ Shopware.Component.register('blog-list', {
                     allowResize: true,
                 },
                 {
+                    property: 'products',
+                    dataIndex: 'products',
+                    label: this.$tc('blog-system.blog.list.column.products'),
+                    sortable: false,
+                    allowResize: true,
+                },
+                {
                     property: 'active',
                     dataIndex: 'active',
                     label: this.$tc('blog-system.blog.list.column.active'),
@@ -68,6 +75,8 @@ Shopware.Component.register('blog-list', {
             const criteria = new Shopware.Data.Criteria(this.page, this.limit);
             criteria.addSorting(Shopware.Data.Criteria.sort(this.sortBy, this.sortDirection, false));
             criteria.addAssociation('category');
+            criteria.addAssociation('products');
+            criteria.addAssociation('products.translations');
 
             return criteria;
         },
@@ -78,10 +87,47 @@ Shopware.Component.register('blog-list', {
     },
 
     methods: {
+        getProductNames(item) {
+            if (!item || !item.products) {
+                return '-';
+            }
+
+            let products = item.products;
+
+            if (typeof products.getElements === 'function') {
+                products = Object.values(products.getElements());
+            }
+
+            if (!Array.isArray(products)) {
+                if (typeof products.map === 'function') {
+                    products = products.map((p) => p);
+                } else if (typeof products.forEach === 'function') {
+                    const tmp = [];
+                    products.forEach((p) => tmp.push(p));
+                    products = tmp;
+                }
+            }
+
+            if (!Array.isArray(products) || products.length === 0) {
+                return '-';
+            }
+
+            const names = products
+                .map((p) => p?.translated?.name || p?.name)
+                .filter((name) => typeof name === 'string' && name.length > 0);
+
+            return names.length > 0 ? names.join(', ') : '-';
+        },
+
         getList() {
             this.isLoading = true;
 
-            return this.repository.search(this.criteria, Shopware.Context.api).then((result) => {
+            const context = {
+                ...Shopware.Context.api,
+                inheritance: true,
+            };
+
+            return this.repository.search(this.criteria, context).then((result) => {
                 this.blogs = result;
                 this.total = result.total;
                 this.isLoading = false;

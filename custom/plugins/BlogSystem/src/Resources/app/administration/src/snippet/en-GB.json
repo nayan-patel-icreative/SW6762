@@ -7,6 +7,7 @@
                 "emptySubline": "Create your first blog.",
                 "column": {
                     "name": "Name",
+                    "products": "Products",
                     "active": "Active",
                     "author": "Author",
                     "createdAt": "Created"
